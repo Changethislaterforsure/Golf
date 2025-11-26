@@ -1,9 +1,16 @@
 package com.example.golfclub.entity;
 
-import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 
 @Entity
 public class Member {
@@ -18,18 +25,16 @@ public class Member {
     private String memberPhone;
 
     private LocalDate membershipStartDate;
-    private Integer membershipDurationMonths; // duration in months
+    private Integer membershipDurationMonths;
 
-    // Not in the bullets, but needed for "search by membership type"
     private String membershipType;
 
     @ManyToMany(mappedBy = "participants")
+    @JsonIgnore
     private Set<Tournament> tournaments = new HashSet<>();
 
     public Member() {
     }
-
-    // Getters and setters
 
     public Long getId() {
         return id;
